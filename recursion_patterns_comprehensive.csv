@@ -1,0 +1,100 @@
+Category,Pattern,Description,Template,Time_Complexity,Space_Complexity,Examples,LeetCode_Problems
+Basic Recursion,Linear Recursion,Simple recursive calls with single recursive step,"def linear_recursion(n):
+    if n == base_case: return base_value
+    return operation(n, linear_recursion(n-1))",O(n),O(n),"Factorial, Sum of numbers, Power calculation","LC 509 Fibonacci, LC 50 Pow(x,n)"
+Basic Recursion,Tail Recursion,Recursive call is the last operation,"def tail_recursion(n, accumulator=0):
+    if n == 0: return accumulator
+    return tail_recursion(n-1, accumulator + n)",O(n),O(1) optimized,"Optimized factorial, Sum with accumulator",Optimized versions of basic problems
+Basic Recursion,Tree Recursion,Multiple recursive calls in single function,"def tree_recursion(n):
+    if n <= 1: return base_cases[n]
+    return tree_recursion(n-1) + tree_recursion(n-2)",O(2^n),O(n),"Fibonacci, Tribonacci sequence","LC 509 Fibonacci, LC 1137 Tribonacci"
+Tree Recursion,DFS Tree Traversal,Depth-first traversal of trees,"def dfs_traversal(root):
+    if not root: return
+    process(root)  # preorder
+    dfs_traversal(root.left)
+    process(root)  # inorder
+    dfs_traversal(root.right)
+    process(root)  # postorder",O(n),O(h) where h is height,"Inorder, Preorder, Postorder traversals","LC 94 Inorder, LC 144 Preorder, LC 145 Postorder"
+Tree Recursion,Binary Tree Properties,Calculate tree properties recursively,"def tree_property(root):
+    if not root: return base_value
+    left = tree_property(root.left)
+    right = tree_property(root.right)
+    return combine(left, right, root.val)",O(n),O(h),"Height, Diameter, Maximum path sum","LC 104 Max Depth, LC 543 Diameter, LC 124 Max Path Sum"
+Graph Recursion,DFS Graph Traversal,Depth-first search in graphs,"def dfs(graph, node, visited):
+    if node in visited: return
+    visited.add(node)
+    process(node)
+    for neighbor in graph[node]:
+        dfs(graph, neighbor, visited)",O(V + E),O(V),"Connected components, Path finding","LC 200 Number of Islands, LC 695 Max Area of Island"
+Backtracking,Generate All Solutions,Generate all possible solutions with backtracking,"def backtrack(path, choices):
+    if is_complete(path): result.append(path[:])
+    for choice in choices:
+        if is_valid(choice, path):
+            path.append(choice)
+            backtrack(path, remaining_choices)
+            path.pop()  # backtrack",O(2^n) to O(n!),O(n),"Subsets, Permutations, Combinations","LC 78 Subsets, LC 46 Permutations, LC 77 Combinations"
+Backtracking,Constraint Satisfaction,Solve problems with constraints using backtracking,"def solve(board, position):
+    if is_solved(board): return True
+    for choice in get_choices(position):
+        if is_safe(board, position, choice):
+            make_move(board, position, choice)
+            if solve(board, next_position): return True
+            undo_move(board, position, choice)
+    return False",Exponential,O(n^2) for board problems,"N-Queens, Sudoku, Knight's Tour","LC 51 N-Queens, LC 37 Sudoku Solver"
+Dynamic Programming,Top-Down Memoization,Recursive approach with memoization,"def dp_recursive(n, memo={}):
+    if n in memo: return memo[n]
+    if n <= base_case: return base_value
+    memo[n] = recurrence_relation(n)
+    return memo[n]",O(n) to O(n^2),O(n),"Optimized Fibonacci, LCS, Edit Distance","LC 70 Climbing Stairs, LC 322 Coin Change"
+Dynamic Programming,Overlapping Subproblems,Problems with overlapping recursive calls,"def solve(i, j, memo):
+    if (i, j) in memo: return memo[(i, j)]
+    if base_condition: return base_value
+    memo[(i, j)] = min/max(solve(i+1, j) + cost, solve(i, j+1) + cost)
+    return memo[(i, j)]",O(n*m),O(n*m),"Longest Common Subsequence, Edit Distance","LC 1143 LCS, LC 72 Edit Distance"
+Divide & Conquer,Binary Division,Divide problem into two equal parts,"def divide_conquer(arr, left, right):
+    if left >= right: return base_case
+    mid = (left + right) // 2
+    left_result = divide_conquer(arr, left, mid)
+    right_result = divide_conquer(arr, mid+1, right)
+    return merge(left_result, right_result)",O(n log n),O(log n),"Merge Sort, Quick Sort, Binary Search","LC 88 Merge Sorted Arrays, LC 215 Kth Largest"
+Divide & Conquer,Master Theorem Applications,Problems following master theorem pattern,"def master_theorem(n):
+    if n <= threshold: return solve_directly(n)
+    return combine(master_theorem(n//2), master_theorem(n//2))",O(n log n) typical,O(log n),"Closest Pair, Maximum Subarray",LC 53 Maximum Subarray (divide & conquer)
+Mathematical,Tower of Hanoi,Classic recursive mathematical problem,"def hanoi(n, source, destination, auxiliary):
+    if n == 1: move_disk(source, destination)
+    else:
+        hanoi(n-1, source, auxiliary, destination)
+        move_disk(source, destination)
+        hanoi(n-1, auxiliary, destination, source)",O(2^n),O(n),Tower of Hanoi puzzle,Not directly on LeetCode
+Mathematical,Catalan Numbers,Combinatorial problems using Catalan sequence,"def catalan(n, memo={}):
+    if n <= 1: return 1
+    if n in memo: return memo[n]
+    result = sum(catalan(i) * catalan(n-1-i) for i in range(n))
+    memo[n] = result
+    return result",O(n^2),O(n),"Binary trees count, Valid parentheses","LC 96 Unique BSTs, LC 22 Generate Parentheses"
+Game Theory,Minimax Algorithm,Optimal strategy in two-player games,"def minimax(state, depth, maximizing_player):
+    if depth == 0 or game_over(state): return evaluate(state)
+    if maximizing_player:
+        return max(minimax(child, depth-1, False) for child in get_children(state))
+    else:
+        return min(minimax(child, depth-1, True) for child in get_children(state))",O(b^d),O(d),"Tic-tac-toe, Chess evaluation","LC 464 Can I Win, LC 486 Predict the Winner"
+Game Theory,Alpha-Beta Pruning,Optimized minimax with pruning,"def alphabeta(state, depth, alpha, beta, maximizing):
+    if depth == 0: return evaluate(state)
+    if maximizing:
+        for child in get_children(state):
+            alpha = max(alpha, alphabeta(child, depth-1, alpha, beta, False))
+            if beta <= alpha: break
+        return alpha
+    else:
+        for child in get_children(state):
+            beta = min(beta, alphabeta(child, depth-1, alpha, beta, True))
+            if beta <= alpha: break
+        return beta",O(b^(d/2)) best case,O(d),Optimized game AI,Advanced game theory problems
+String Recursion,String Processing,Recursive string operations,"def string_recursion(s, index):
+    if index >= len(s): return base_case
+    current = s[index]
+    return combine(current, string_recursion(s, index+1))",O(n),O(n),"Palindrome check, String reversal","LC 125 Valid Palindrome, LC 344 Reverse String"
+Array Recursion,Array Processing,Recursive array operations,"def array_recursion(arr, index):
+    if index >= len(arr): return base_value
+    current = arr[index]
+    return combine(current, array_recursion(arr, index+1))",O(n),O(n),"Sum, Product, Maximum element",Various array problems with recursive solutions
