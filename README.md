@@ -22,7 +22,7 @@ This comprehensive guide is designed to help developers master recursion through
 
 ## Pattern Categories
 
-### ðŸ”¹ **Foundation Level**
+###  **Foundation Level**
 1. **Basic Recursion (Foundation)**
    - Print sequences, factorial, Fibonacci, power calculations
    - *Complexity*: O(n) linear, O(2^n) tree recursion
@@ -136,7 +136,7 @@ public class PatternName {
 | **Medium** | 22 problems | Backtracking, DP, advanced patterns |
 | **Hard** | 6 problems | Complex algorithms, optimization |
 
-## ðŸ› ï¸ Study Strategies
+## Study Strategies
 
 ### For Interviews
 1. Master patterns 1-3 for basic recursion questions
